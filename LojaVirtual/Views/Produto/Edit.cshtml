@@ -1,0 +1,43 @@
+﻿@model LojaVirtual.ViewModels.ProdutoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Produto</h1>
+
+<form asp-controller="Produto" asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descricao"></label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Preco"></label>
+        <input asp-for="Preco" class="form-control" />
+        <span asp-validation-for="Preco" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Promocao"></label>
+        <select asp-for="Promocao" class="form-control">
+            <option value="">Selecione uma opção</option>
+            <option value="Promocao1">Promocao1</option>
+            <option value="Promocao2">Promocao2</option>
+            <option value="Promocao3">Promocao3</option>
+        </select>
+        <span asp-validation-for="Promocao" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Back to List</a>
+</form>

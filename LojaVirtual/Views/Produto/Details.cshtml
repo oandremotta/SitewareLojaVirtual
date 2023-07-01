@@ -1,0 +1,39 @@
+﻿@model LojaVirtual.ViewModels.ProdutoViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Produto Details</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.Nome</dd>
+
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">@Model.Descricao</dd>
+
+            <dt class="col-sm-3">Preço</dt>
+            <dd class="col-sm-9">@Model.Preco.ToString("C")</dd>
+
+            <dt class="col-sm-3">Criado Em</dt>
+            <dd class="col-sm-9">@Model.CriadoEm</dd>
+
+            <dt class="col-sm-3">Atualizado Em</dt>
+            <dd class="col-sm-9">@Model.AtualizadoEm</dd>
+
+            <dt class="col-sm-3">Deletado Em</dt>
+            <dd class="col-sm-9">@Model.DeletadoEm</dd>
+
+            <dt class="col-sm-3">Promoção</dt>
+            <dd class="col-sm-9">@Model.Promocao</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Back to List</a>

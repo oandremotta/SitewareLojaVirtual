@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LojaVirtual.ViewModels.ProdutoViewModel>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Produtos</h1>
+
+<p>
+    <a asp-controller="Produto" asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<form method="get" asp-controller="Produto" asp-action="Index">
+    <div class="form-group">
+        <label for="nome">Buscar Produto:</label>
+        <input type="text" id="nome" name="nome" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Criado Em</th>
+            <th>Atualizado Em</th>
+            <th>Deletado Em</th>
+            <th>Promoção</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model)
+        {
+                <tr>
+                    <td>@produto.Id</td>
+                    <td>@produto.Nome</td>
+                    <td>@produto.Descricao</td>
+                    <td>@produto.Preco.ToString("C")</td>
+                    <td>@produto.CriadoEm</td>
+                    <td>@produto.AtualizadoEm</td>
+                    <td>@produto.DeletadoEm</td>
+                    <td>@produto.Promocao</td>
+                    <td>
+                        <a asp-controller="Produto" asp-action="Details" asp-route-id="@produto.Id" class="btn btn-info">Details</a>
+                        <a asp-controller="Produto" asp-action="Edit" asp-route-id="@produto.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Produto" asp-action="Delete" asp-route-id="@produto.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
