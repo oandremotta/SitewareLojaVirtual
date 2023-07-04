@@ -1,4 +1,7 @@
-﻿using LojaVirtual.Models;
+﻿using AutoMapper;
+using Loja.Domain.Application.Interface;
+using LojaVirtual.Models;
+using LojaVirtual.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +9,21 @@ namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProdutoAppService _produtoAppService;
+        private readonly IMapper _mapper;
+
+        public HomeController(IProdutoAppService produtoAppService, IMapper mapper)
         {
-            _logger = logger;
+            _produtoAppService = produtoAppService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var produtos = _produtoAppService.GetAll();
+            var produtosViewModel = _mapper.Map<List<ProdutoViewModel>>(produtos);
+            return View(produtosViewModel);
         }
 
         public IActionResult Privacy()

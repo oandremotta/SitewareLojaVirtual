@@ -6,8 +6,6 @@ namespace Loja.Domain.Infra.Contexts
     public class LojaContext : DbContext
     {
         public DbSet<Produto> Produtos { get; set; }
-        public DbSet<Carrinho> CarrinhosCompras { get; set; }
-
         public LojaContext(DbContextOptions<LojaContext> options)
             : base(options)
         {

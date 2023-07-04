@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<LojaVirtual.ViewModels.ProdutoViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Lista de Produtos</h1>
+
+<div class="row">
+    @if (Model != null && Model.Count > 0)
+    {
+        @foreach (var produto in Model)
+        {
+            <div class="col-md-3">
+                <div class="card @(produto.Promocao != null ? "promocao-card" : "")">
+                    <img src="@produto.Image" class="card-img-top" alt="Imagem do Produto">
+                    <div class="card-body">
+                        <h6>@produto.Nome</h6>
+                        <p>@produto.Descricao</p>
+                        <p>Preço: @produto.Preco.ToString("C2")</p>
+                        @if (produto.Promocao != null)
+                        {
+                            <p class="text-danger">Promoção: @produto.Promocao.ToString()</p>
+                        }
+                        else
+                        {
+                            <p>&nbsp</p>
+                        }
+
+                        <div class="form-group">
+                            <label for="quantidade-@produto.Id">Quantidade:</label>
+                            <select id="quantidade-@produto.Id" class="form-control">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+
+                        <a href="#" onclick="adicionarProduto('@produto.Id', '@produto.Nome', '@produto.Preco.ToString("F2")', '@produto.Promocao'); return false;" class="btn btn-primary d-block">Adicionar</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Nenhum produto encontrado.</p>
+    }
 </div>

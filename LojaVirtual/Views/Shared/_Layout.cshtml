@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - LojaVirtual</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/LojaVirtual.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -26,13 +27,46 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Produto" asp-action="Index">Produto</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <div id="notification" class="text-center text-white"></div>
             @RenderBody()
+            <!-- Carrinho de compras - Modal -->
+            <!-- Carrinho de compras - Modal -->
+            <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cartModalLabel">Carrinho de Compras</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="cartItems">
+                                <!-- Os itens do carrinho serão adicionados dinamicamente aqui -->
+                            </div>
+                            <p id="cartEmptyMessage" class="text-center">Nenhum produto no carrinho.</p>
+                        </div>
+                        <div id="cartTotal" class="text-end p-3"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button id="limparCarrinho" type="button" class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
+                            <button id="finalizarCompra" type="button" class="btn btn-primary" onclick="finalizarCompra()">Finalizar Compra</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -44,6 +78,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/carrinho.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

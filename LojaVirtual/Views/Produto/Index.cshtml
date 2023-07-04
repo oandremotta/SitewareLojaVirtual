@@ -27,7 +27,6 @@
             <th>Preço</th>
             <th>Criado Em</th>
             <th>Atualizado Em</th>
-            <th>Deletado Em</th>
             <th>Promoção</th>
             <th></th>
         </tr>
@@ -42,7 +41,6 @@
                     <td>@produto.Preco.ToString("C")</td>
                     <td>@produto.CriadoEm</td>
                     <td>@produto.AtualizadoEm</td>
-                    <td>@produto.DeletadoEm</td>
                     <td>@produto.Promocao</td>
                     <td>
                         <a asp-controller="Produto" asp-action="Details" asp-route-id="@produto.Id" class="btn btn-info">Details</a>
