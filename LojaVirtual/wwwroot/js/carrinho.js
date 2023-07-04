@@ -1,7 +1,15 @@
 ﻿var carrinho = [];
 
 $(document).ready(function () {
-    atualizarModal();
+    // Recuperar carrinho do localStorage
+    var carrinhoSalvo = localStorage.getItem('carrinho');
+    if (carrinhoSalvo) {
+        carrinho = JSON.parse(carrinhoSalvo);
+        atualizarModal();
+        atualizarTotalCarrinho();
+    } else {
+        carrinho = [];
+    }
 });
 
 function adicionarProduto(id, nome, preco, promocao) {
@@ -25,6 +33,9 @@ function adicionarProduto(id, nome, preco, promocao) {
     atualizarModal();
     atualizarTotalCarrinho();
 
+    // Armazenar carrinho no localStorage
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
     showNotification('Produto adicionado ao carrinho!');
 }
 
@@ -39,7 +50,7 @@ function aplicarPromocao(produto) {
                 var precoNaoPromocional = produto.preco * quantidadeNaoPromocional;
 
                 produto.precoTotal = precoPromocional + precoNaoPromocional;
-                produto.valorDesconto = produto.preco * quantidadePromocional; // Alterado para calcular corretamente o valor do desconto
+                produto.valorDesconto = produto.preco * quantidadePromocional;
                 produto.textoPromocao = '<span class="textoPromocao"><br/> (Promoção: Leve 2, Pague 1)</span>';
             } else {
                 produto.precoTotal = produto.quantidade * produto.preco;
@@ -57,7 +68,7 @@ function aplicarPromocao(produto) {
                 var precoNaoPromocional = produto.preco * quantidadeNaoPromocional;
 
                 produto.precoTotal = precoPromocional + precoNaoPromocional;
-                produto.valorDesconto = produto.preco * quantidadeGrupos; // Alterado para calcular corretamente o valor do desconto
+                produto.valorDesconto = produto.preco * quantidadeGrupos;
                 produto.textoPromocao = '<span class="textoPromocao"><br/>  (Promoção: 3 por R$10)</span>';
             } else {
                 produto.precoTotal = produto.quantidade * produto.preco;
@@ -72,16 +83,16 @@ function aplicarPromocao(produto) {
 
 function atualizarTotalCarrinho() {
     var total = 0;
-    var totalDesconto = 0; // Variável para armazenar o valor total do desconto
+    var totalDesconto = 0;
 
     carrinho.forEach(function (produto) {
         total += produto.precoTotal || produto.quantidade * produto.preco;
-        totalDesconto += produto.valorDesconto || 0; // Somar o valor do desconto
+        totalDesconto += produto.valorDesconto || 0;
     });
 
     var cartTotalDiv = $('#cartTotal');
     if (cartTotalDiv.length) {
-        cartTotalDiv.html('Desconto total: ' + formatCurrencyValue(totalDesconto) + '<br/>Total: ' + formatCurrencyValue(total)); // Exibir o valor total do desconto
+        cartTotalDiv.html('Desconto total: ' + formatCurrencyValue(totalDesconto) + '<br/>Total: ' + formatCurrencyValue(total));
     }
 }
 
@@ -92,6 +103,9 @@ function removerProduto(id) {
 
     atualizarModal();
     atualizarTotalCarrinho();
+
+    // Armazenar carrinho no localStorage
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
 }
 
 function diminuirQuantidade(id) {
@@ -108,6 +122,9 @@ function diminuirQuantidade(id) {
             aplicarPromocao(produto);
             atualizarModal();
             atualizarTotalCarrinho();
+
+            // Armazenar carrinho no localStorage
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
         }
     }
 }
@@ -122,6 +139,9 @@ function aumentarQuantidade(id) {
         aplicarPromocao(produto);
         atualizarModal();
         atualizarTotalCarrinho();
+
+        // Armazenar carrinho no localStorage
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
     }
 }
 
@@ -144,7 +164,7 @@ function atualizarModal() {
 
             carrinho.forEach(function (produto) {
                 var itemDiv = $('<div></div>');
-                itemDiv.attr('data-id', produto.id); // Adicione o atributo data-id com o ID do produto
+                itemDiv.attr('data-id', produto.id);
 
                 var valorProduto = produto.textoPromocao ? formatCurrencyValue(produto.precoTotal) + produto.textoPromocao : formatCurrencyValue(produto.preco * produto.quantidade);
                 itemDiv.html(produto.nome + ' <small>(un: ' + formatCurrencyValue(produto.preco) + ')</small> - Valor: ' + valorProduto);
@@ -174,9 +194,9 @@ function atualizarModal() {
 
                 itemDiv.append(quantidadeDiv);
 
-                var descontoSpan = $('<span></span>'); // Elemento para exibir o valor do desconto
-                descontoSpan.addClass('ms-1 text-danger'); // Classe para estilizar o elemento de desconto
-                itemDiv.append(descontoSpan); // Adicione o elemento de desconto ao item do carrinho
+                var descontoSpan = $('<span></span>');
+                descontoSpan.addClass('ms-1 text-danger');
+                itemDiv.append(descontoSpan);
 
                 cartItemsDiv.append(itemDiv);
 
@@ -203,6 +223,9 @@ function atualizarModal() {
 function limparCarrinho() {
     carrinho = [];
     atualizarModal();
+
+    // Armazenar carrinho vazio no localStorage
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
     console.log("Limpando carrinho");
 }
 
@@ -210,6 +233,9 @@ function finalizarCompra() {
     limparCarrinho();
     $('#cartModal').modal('hide');
     showNotification("Pedido efetuado com sucesso.");
+
+    // Remover carrinho do localStorage após a finalização da compra
+    localStorage.removeItem('carrinho');
 }
 
 function showNotification(message) {
@@ -217,8 +243,17 @@ function showNotification(message) {
     notificationDiv.text(message);
     notificationDiv.show();
 
-    // Esconder a notificação após alguns segundos (opcional)
     setTimeout(function () {
         notificationDiv.hide();
-    }, 5000); // Esconder a notificação após 3 segundos (3000 milissegundos)
+    }, 5000);
 }
+
+$(document).ready(function () {
+    // Carregar carrinho do localStorage ao carregar a página
+    var carrinhoStorage = localStorage.getItem('carrinho');
+    if (carrinhoStorage) {
+        carrinho = JSON.parse(carrinhoStorage);
+        atualizarModal();
+        atualizarTotalCarrinho();
+    }
+});
