@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loja.Domain.Infra.Migrations
 {
     [DbContext(typeof(LojaContext))]
-    [Migration("20230701054120_Initial")]
+    [Migration("20230704164458_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,45 +23,6 @@ namespace Loja.Domain.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Loja.Domain.Entities.CarrinhoCompras", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CarrinhosCompras");
-                });
-
-            modelBuilder.Entity("Loja.Domain.Entities.ItemCarrinho", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("CarrinhoComprasId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarrinhoComprasId");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("ItemCarrinho");
-                });
 
             modelBuilder.Entity("Loja.Domain.Entities.Produto", b =>
                 {
@@ -104,26 +65,6 @@ namespace Loja.Domain.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("Loja.Domain.Entities.ItemCarrinho", b =>
-                {
-                    b.HasOne("Loja.Domain.Entities.CarrinhoCompras", null)
-                        .WithMany("Itens")
-                        .HasForeignKey("CarrinhoComprasId");
-
-                    b.HasOne("Loja.Domain.Entities.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("Loja.Domain.Entities.CarrinhoCompras", b =>
-                {
-                    b.Navigation("Itens");
                 });
 #pragma warning restore 612, 618
         }
