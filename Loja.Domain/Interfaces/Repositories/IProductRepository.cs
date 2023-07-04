@@ -5,5 +5,8 @@ namespace Loja.Domain.Interfaces.Repositories
     public interface IProductRepository : IRepositoryBase<Produto>
     {
         IEnumerable<Produto> BuscarPorNome(string nome);
+        IEnumerable<Produto> GetProdutosAtivo();
+
     }
+
 }

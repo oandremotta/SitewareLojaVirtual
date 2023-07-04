@@ -21,6 +21,12 @@
             <dt class="col-sm-3">Preço</dt>
             <dd class="col-sm-9">@Model.Preco.ToString("C")</dd>
 
+            <dt class="col-sm-3">Quantidade</dt>
+            <dd class="col-sm-9">@Model.Quantidade</dd>
+
+            <dt class="col-sm-3">Ativo</dt>
+            <dd class="col-sm-9">@((Model.Ativo) ? "Sim" : "Não")</dd>
+
             <dt class="col-sm-3">Criado Em</dt>
             <dd class="col-sm-9">@Model.CriadoEm</dd>
 
@@ -31,6 +37,16 @@
             <dd class="col-sm-9">@Model.Promocao</dd>
         </dl>
     </div>
+    <div class="col-md-8">
+        <img src="@Model.Image" alt="Imagem do Produto" class="img-fluid produto-imagem">
+    </div>
 </div>
 
-<a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Back to List</a>
+<a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Voltar</a>
+
+<style>
+    .produto-imagem {
+        max-width: 100%;
+        max-height: 400px;
+    }
+</style>

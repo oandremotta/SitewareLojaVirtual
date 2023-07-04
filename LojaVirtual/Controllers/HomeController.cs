@@ -21,7 +21,7 @@ namespace LojaVirtual.Controllers
 
         public IActionResult Index()
         {
-            var produtos = _produtoAppService.GetAll();
+            var produtos = _produtoAppService.GetProdutosAtivo();
             var produtosViewModel = _mapper.Map<List<ProdutoViewModel>>(produtos);
             return View(produtosViewModel);
         }

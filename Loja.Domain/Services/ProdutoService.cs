@@ -17,5 +17,10 @@ namespace Loja.Domain.Services
         {
             return _repository.BuscarPorNome(nome);
         }
+
+        public IEnumerable<Produto> GetProdutosAtivo()
+        {
+            return _repository.GetProdutosAtivo();
+        }
     }
 }

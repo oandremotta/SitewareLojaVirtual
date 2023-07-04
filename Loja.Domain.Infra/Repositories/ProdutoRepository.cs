@@ -14,4 +14,10 @@ public class ProdutoRepository : RepositoryBase<Produto>, IProductRepository
     {
         return _context.Produtos.Where(x => x.Nome.Contains(nome));
     }
+
+    public IEnumerable<Produto> GetProdutosAtivo()
+    {
+        return _context.Produtos.Where(x => x.Ativo == true);
+    }
+
 }

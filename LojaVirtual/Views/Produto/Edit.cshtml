@@ -22,22 +22,41 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="Preco"></label>
         <input asp-for="Preco" class="form-control" />
         <span asp-validation-for="Preco" class="text-danger"></span>
     </div>
 
     <div class="form-group">
+        <label asp-for="Quantidade"></label>
+        <input asp-for="Quantidade" class="form-control" />
+        <span asp-validation-for="Quantidade" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="Ativo" />
+            <label class="form-check-label" asp-for="Ativo">Ativo</label>
+        </div>
+        <span asp-validation-for="Ativo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="Promocao"></label>
         <select asp-for="Promocao" class="form-control">
             <option value="">Selecione uma opção</option>
-            <option value="Promocao1">Promocao1</option>
-            <option value="Promocao2">Promocao2</option>
-            <option value="Promocao3">Promocao3</option>
+            <option value="Leve2Pague1">Leve 2 Pague 1</option>
+            <option value="TresPorDez">Três por Dez</option>
         </select>
         <span asp-validation-for="Promocao" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+    <a asp-controller="Produto" asp-action="Index" class="btn btn-secondary">Voltar</a>
 </form>

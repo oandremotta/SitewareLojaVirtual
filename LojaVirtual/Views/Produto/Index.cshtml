@@ -7,7 +7,7 @@
 <h1>Produtos</h1>
 
 <p>
-    <a asp-controller="Produto" asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-controller="Produto" asp-action="Create" class="btn btn-primary">Adicionar Produto</a>
 </p>
 
 <form method="get" asp-controller="Produto" asp-action="Index">
@@ -43,9 +43,9 @@
                     <td>@produto.AtualizadoEm</td>
                     <td>@produto.Promocao</td>
                     <td>
-                        <a asp-controller="Produto" asp-action="Details" asp-route-id="@produto.Id" class="btn btn-info">Details</a>
-                        <a asp-controller="Produto" asp-action="Edit" asp-route-id="@produto.Id" class="btn btn-primary">Edit</a>
-                        <a asp-controller="Produto" asp-action="Delete" asp-route-id="@produto.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Produto" asp-action="Details" asp-route-id="@produto.Id" class="btn btn-info">Detalhes</a>
+                        <a asp-controller="Produto" asp-action="Edit" asp-route-id="@produto.Id" class="btn btn-primary">Editar</a>
+                        <a asp-controller="Produto" asp-action="Delete" asp-route-id="@produto.Id" class="btn btn-danger">Deletar</a>
                     </td>
                 </tr>
         }

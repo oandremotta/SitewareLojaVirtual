@@ -17,5 +17,13 @@ namespace Loja.Domain.Application
         {
             return _produtoService.BuscarPorNome(nome);
         }
+
+        public IEnumerable<Produto> GetProdutosAtivo()
+        {
+            var produtosAtivos = _produtoService.GetProdutosAtivo();
+            return produtosAtivos ?? Enumerable.Empty<Produto>();
+        }
+
+
     }
 }
